@@ -3,10 +3,11 @@
 
 require_relative '../lib/release_manager'
 require_relative '../lib/components_diff/components_diff'
-require_relative '../lib/presenters/terminal'
 
 unless ARGV[0]
-  puts 'Please provide branch, it is mandatory!'
-  return
+  puts 'Usage: ruby bin/check-components_diff <branch or ref> <release_type>'
+  exit 1
 end
-ReleaseManager::Presenters::Terminal.new(branch: ARGV[0], release_type: ARGV[1]).present
+
+response = ReleaseManager::ComponentsDiff::Dispatchers::CLI.trigger!(ARGV)
+ReleaseManager::ComponentsDiff::Presenters::Terminal.present(response)
