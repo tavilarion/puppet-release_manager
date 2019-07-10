@@ -5,3 +5,4 @@ before_install:
 script:
   - bundle exec rubocop
   - bundle exec rspec
+  - bundle exec rubycritic --no-browser -s 90 -m
